@@ -1,0 +1,20 @@
+version: '3.1'
+
+services:
+
+  node:
+    container_name: node
+    build: .
+    restart: always
+    ports:
+      - 80:80
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ruanqiaohua
+      MONGO_INITDB_ROOT_PASSWORD: 62203957
