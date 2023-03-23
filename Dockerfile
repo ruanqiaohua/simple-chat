@@ -1,8 +1,10 @@
 FROM node:16
 
-COPY ./simple-chat ./simple-chat
+WORKDIR /app
 
-ENTRYPOINT 80
+COPY . .
 
-ENTRYPOINT node ./simple-chat/server.js
+EXPOSE 80
+
+ENTRYPOINT node server.js
 
