@@ -61,7 +61,8 @@ io.on('connection', () =>{
   console.log('a user is connected')
 })
 
-mongoose.connect(dbUrl ,{useMongoClient : false} ,(err) => {
+mongoose.set('strictQuery', true);
+mongoose.connect(dbUrl ,(err) => {
   console.log('mongodb connected',err);
 })
 
