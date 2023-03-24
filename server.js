@@ -16,10 +16,13 @@ var Message = mongoose.model('Message',{
 
 var dbUrl = 'mongodb://ruanqiaohua:62203957@mongo:27017/simple-chat'
 
+var fs = require("fs");
+var open_api_key = fs.readFileSync('key.text').toString(); 
+
 const { Configuration, OpenAIApi } = require("openai");
 
 const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: open_api_key,
 });
 const openai = new OpenAIApi(configuration);
 
@@ -51,6 +54,16 @@ app.post('/messages', async (req, res) => {
         await Message.remove({_id: censored.id})
       else
         io.emit('message', req.body);
+        // 回复消息
+        var content = req.body.message;
+        console.log(configuration.apiKey);
+        const completion = await openai.createChatCompletion({
+          model: "gpt-3.5-turbo",
+          messages: [{role: "user", content: content}],
+        });
+        var text = completion.data.choices[0].message.content;
+        io.emit('message', {'name':'ai','message':text});
+      // 返回
       res.sendStatus(200);
   }
   catch (error){
@@ -60,14 +73,6 @@ app.post('/messages', async (req, res) => {
   finally{
     console.log('Message Posted')
   }
-
-  // 回复消息
-  const completion = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
-    messages: [{role: "user", content: req.body}],
-  });
-  var text = completion.data.choices[0].message.content;
-  io.emit('message', text);
 
 })
 

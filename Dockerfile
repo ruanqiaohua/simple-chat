@@ -2,9 +2,7 @@ FROM node
 
 WORKDIR /app
 
-COPY . .
-
-RUN echo "$(cat key.text)" >> ~/.bashrc
+VOLUME [ "/app" ]
 
 EXPOSE 80
 

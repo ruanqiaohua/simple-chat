@@ -8,6 +8,8 @@ services:
     restart: always
     ports:
       - 80:80
+    volumes:
+      - ./:/app
 
   mongo:
     container_name: mongo
@@ -16,13 +18,8 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - mongo_configdb:/data/configdb
-      - mongo_db:/data/db
+      - ~/mongo_configdb:/data/configdb
+      - ~/mongo_db:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: ruanqiaohua
       MONGO_INITDB_ROOT_PASSWORD: 62203957
-
-volumes:
-  app:
-  mongo_configdb:
-  mongo_db:
