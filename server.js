@@ -16,6 +16,13 @@ var Message = mongoose.model('Message',{
 
 var dbUrl = 'mongodb://ruanqiaohua:62203957@mongo:27017/simple-chat'
 
+const { Configuration, OpenAIApi } = require("openai");
+
+const configuration = new Configuration({
+  apiKey: "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",
+});
+const openai = new OpenAIApi(configuration);
+
 app.get('/messages', (req, res) => {
   Message.find({},(err, messages)=> {
     res.send(messages);
@@ -32,11 +39,12 @@ app.get('/messages/:user', (req, res) => {
 
 
 app.post('/messages', async (req, res) => {
+  
   try{
     var message = new Message(req.body);
 
     var savedMessage = await message.save()
-      console.log('saved');
+    console.log('saved');
 
     var censored = await Message.findOne({message:'badword'});
       if(censored)
@@ -52,6 +60,14 @@ app.post('/messages', async (req, res) => {
   finally{
     console.log('Message Posted')
   }
+
+  // 回复消息
+  const completion = await openai.createChatCompletion({
+    model: "gpt-3.5-turbo",
+    messages: [{role: "user", content: req.body}],
+  });
+  var text = completion.data.choices[0].message.content;
+  io.emit('message', text);
 
 })
 
