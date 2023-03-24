@@ -39,8 +39,8 @@
     function addMessages(message){
         $("#messages").append(`<h4> ${message.name} </h4> <p> ${message.message} </p>`)
     }
-    // let host = 'http://itphone.cn'
-    let host = 'http://127.0.0.1'
+    let host = 'http://itphone.cn'
+    // let host = 'http://127.0.0.1'
 
     function getMessages(){
       $.get(host + '/messages', (data) => {
