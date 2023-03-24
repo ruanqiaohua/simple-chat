@@ -9,7 +9,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./:/app
+      - .:/app
 
   mongo:
     container_name: mongo
