@@ -19,7 +19,7 @@ var dbUrl = 'mongodb://ruanqiaohua:62203957@mongo:27017/simple-chat'
 const { Configuration, OpenAIApi } = require("openai");
 
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
 
