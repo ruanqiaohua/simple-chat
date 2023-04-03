@@ -49,10 +49,14 @@ function appendMessage(name, img, side, text) {
   msgerChat.scrollTop += 500;
 }
 
+// const host = 'http://itphone.cn';
+const host = 'http://127.0.0.1';
+
+
 function botResponse(msgText) {
 
-  const url = 'http://itphone.cn/messages';
-  $.post(url, msgText, function(data, status) {
+  const url = host + '/messages';
+  $.post(url, {'message': msgText}, function(data, status) {
 
     const msgText = data;
     const delay = msgText.split(" ").length * 100;

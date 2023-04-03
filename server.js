@@ -43,6 +43,7 @@ app.post('/messages', async (req, res) => {
   try{
       // 回复消息
       var content = req.body.message;
+      console.log(content);
       console.log(configuration.apiKey);
       const completion = await openai.createChatCompletion({
         model: "gpt-3.5-turbo",
