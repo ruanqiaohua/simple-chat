@@ -51,7 +51,7 @@ app.post('/messages', async (req, res) => {
       });
       var text = completion.data.choices[0].message.content;
       // 返回
-      res.sendStatus(200).send(text);
+      res.send(text);
   }
   catch (error){
     res.sendStatus(500);
