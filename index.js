@@ -49,8 +49,8 @@ function appendMessage(name, img, side, text) {
   msgerChat.scrollTop += 500;
 }
 
-// const host = 'http://itphone.cn';
-const host = 'http://127.0.0.1';
+const host = 'http://itphone.cn';
+// const host = 'http://127.0.0.1';
 
 
 function botResponse(msgText) {
